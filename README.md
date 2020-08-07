@@ -11,7 +11,7 @@ generate the results presented in
 
 The neural estimator is extended for calculating entropy production rates 
 of higher dimensional systems including hard disk monte carlo simulations,
-lennard jones molecular dynamics simulations, and active matter simulations.
+Lennard Jones molecular dynamics simulations, and active matter simulations.
 
 ## Installation
 ```bash
