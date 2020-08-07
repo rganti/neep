@@ -1,8 +1,13 @@
 name: neep
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - python=3.6
+  - hoomd
+  - gsd
+  - freud
+  - fresnel
   - pip:
     - torch
     - torchvision
