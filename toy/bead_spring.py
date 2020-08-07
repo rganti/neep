@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.stats import random_correlation
 
 # Spring and Stokes friction coefficient
 k, e = 1, 1
@@ -69,6 +70,12 @@ def sampling(num_beads, T1, T2, num_trjs):
     return positions
 
 
+def random_covariance(num_trjs):
+    cov = random_correlation.rvs((.5, .8, 1.2, 1.5, 1.0, .5, .8, 1.2, 1.5, 1.0, .5, .8, 1.2, 1.5, 1.0))
+    positions = np.random.multivariate_normal(np.zeros((15,)), cov, num_trjs)
+    return positions
+
+
 def simulation(num_trjs, trj_len, num_beads, T1, T2, dt, seed=0):
     """Simulation of a bead-spring model
     
@@ -84,6 +91,7 @@ def simulation(num_trjs, trj_len, num_beads, T1, T2, dt, seed=0):
     Returns:
         trajectories of a bead-spring model
     """
+    # print("Entering simulation...")
     T = np.linspace(T1, T2, num_beads)  # Temperatures linearly varies.
     Drift = np.zeros((num_beads, num_beads))
     for i in range(num_beads):
@@ -103,6 +111,8 @@ def simulation(num_trjs, trj_len, num_beads, T1, T2, dt, seed=0):
 
     trj = np.zeros((num_trjs, num_beads, trj_len))
     position = sampling(num_beads, T1, T2, num_trjs)
+    # print("Random covariance matrix")
+    # position = random_covariance(num_trjs)
 
     for it in range(trj_len):
         RanForce = np.random.normal(0, 1.0, (num_trjs, num_beads))
